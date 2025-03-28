@@ -1,0 +1,8 @@
+wheel
+flask
+gunicorn
+rsa
+requests
+langchain
+langchain-google-genai
+langchain-community

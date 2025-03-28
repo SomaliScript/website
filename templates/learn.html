@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 style="margin-bottom: 0.5em;">Learning with Abdi</h1>
+
+<div id="chat-container" style="display: flex; flex-direction: column; height: 80vh;">
+  <!-- Chat box that scrolls only within itself -->
+  <div id="chat-box" style="flex: 1; background: #111; padding: 1em; overflow-y: auto; border: 1px solid #444; border-radius: 5px;">
+    <div style="text-align:left; margin: 0.5em 0;">
+      <strong>Abdi:</strong> Soo dhawoow! Welcome to our Somali culture lesson. Ask me about Somali language, history, or traditions. (Type "done" when you want a summary.)
+    </div>
+  </div>
+
+  <form id="chat-form" method="post" action="{{ url_for('learn') }}" style="margin-top: 0.5em;">
+    <input type="text" name="message" id="chat-input" placeholder="Ask about Somali culture, language, or history..." 
+           style="width: 70%; padding: 0.5em; border-radius: 5px; border: 1px solid #444;" required>
+    <button type="submit" style="padding: 0.5em 1em; border-radius: 5px; border: none; background: #00bfff; color: #000; font-weight: bold;">
+      Send
+    </button>
+  </form>
+</div>
+
+<script>
+  document.getElementById("chat-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const message = document.getElementById("chat-input").value;
+    if (!message.trim()) return;
+
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML += `<div style="text-align:right; margin: 0.5em 0;"><strong>You:</strong> ${message}</div>`;
+
+    // Send the message to the server
+    fetch("{{ url_for('learn') }}", {
+      method: "POST",
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: "message=" + encodeURIComponent(message)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        chatBox.innerHTML += `<div style="text-align:left; margin: 0.5em 0; color:#ff6b6b;"><strong>Error:</strong> ${data.error}</div>`;
+      } else {
+        // Process the response: split on newline, trim each line, and join with <br>
+        const lines = data.response.split('\n').map(line => line.trimStart());
+        const formattedResponse = lines.join('<br>');
+        chatBox.innerHTML += `<div style="text-align:left; margin: 0.5em 0; white-space: pre-wrap;"><strong>Abdi:</strong> ${formattedResponse}</div>`;
+      }
+      chatBox.scrollTop = chatBox.scrollHeight;
+      document.getElementById("chat-input").value = "";
+    });
+  });
+</script>
+{% endblock %}

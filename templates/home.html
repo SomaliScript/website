@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Welcome to Somalia</h1>
+
+<!-- Container for the main intro text and flag -->
+<div class="intro-section">
+  <!-- Somali Flag, floated right -->
+  <img 
+    src="https://flagpedia.net/data/flags/w580/so.png"
+    alt="Somali Flag"
+    class="intro-flag"
+  >
+  
+  <!-- Main text content -->
+  <div class="intro-text">
+    <p>
+      Somalia, officially the Federal Republic of Somalia, is a country in the Horn of Africa. 
+      It boasts the longest coastline on the African mainland, bordering the Gulf of Aden to 
+      the north and the Indian Ocean to the east. With a rich history, vibrant culture, and 
+      resilient people, Somalia is a nation of proud heritage.
+    </p>
+    <p>
+      This website provides an introduction to Somali culture, history, landmarks, and cuisine.
+      Use the navigation bar above to explore each section in detail. Whether you're curious 
+      about the ancient rock art of Laas Geel or eager to discover mouth-watering Somali 
+      dishes, we've got you covered!
+    </p>
+
+    <h2 class="intro-subheading">Geography &amp; Climate</h2>
+    <p>
+      Somalia’s terrain consists mainly of plateaus, plains, and highlands. Temperatures are 
+      typically hot year-round, and rainfall is minimal outside of the rainy seasons. The 
+      Somali Current in the Indian Ocean influences the climate along the coast, contributing 
+      to distinct ecological zones and abundant marine life.
+    </p>
+
+    <h2 class="intro-subheading">People &amp; Culture</h2>
+    <p>
+      Somalis share a common language (Somali) and most are Sunni Muslims. Poetry, storytelling, 
+      and oral traditions hold a special place in Somali culture, with a rich heritage of 
+      proverbs, folk tales, and epic poetry. Somali nomadic culture has shaped values of 
+      hospitality, resilience, and strong clan relationships.
+    </p>
+
+    <h2 class="intro-subheading">Economy &amp; Livelihood</h2>
+    <p>
+      Traditionally, Somalia’s economy has been centered around livestock, remittances, and 
+      agriculture. Many Somalis engage in pastoralism, raising camels, goats, and sheep. In 
+      urban areas, entrepreneurship and trade are key economic drivers, with bustling markets 
+      offering a variety of goods. Remittances from the Somali diaspora worldwide also play 
+      a major role in supporting local development and livelihoods.
+    </p>
+  </div>
+</div>
+
+<!-- Photo gallery at the bottom -->
+<div class="intro-gallery">
+
+  <img 
+    src="https://media.cnn.com/api/v1/images/stellar/prod/130529100909-mogadishu-boats-sea-mpa.jpg?q=w_1920,h_1080,x_0,y_0,c_fill"
+    alt="Mogadishu Beach" 
+    class="gallery-item"
+  >
+  <img 
+    src="https://media.istockphoto.com/id/1051617300/photo/las-geel-somaliland-rocks-and-paintings.jpg?s=612x612&w=0&k=20&c=0ogp-G3cP5c_xyAzkDpFBh85cId4c60d2uOIsIIX_cc="
+    alt="Laas Geel Paintings" 
+    class="gallery-item"
+  >
+  <img 
+    src="https://www.economist.com/img/b/1280/720/90/sites/default/files/images/print-edition/20170610_MAP001_0.jpg"
+    alt="Somali Nomads" 
+    class="gallery-item"
+  >
+</div>
+{% endblock %}

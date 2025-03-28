@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id="map"></div>
+
+<!-- Landmark Details -->
+<div id="landmarkModal" class="modal">
+  <div class="modal-content animated-modal">
+    <span class="close">&times;</span>
+    <h2 id="landmarkName" style="color: #000;"></h2>
+    <img id="landmarkPhoto" class="landmark-photo" src="" alt="Landmark Photo">
+    <h3 style="color: #000;">Details (English)</h3>
+    <p id="landmarkDescription_en" style="color: #000;"></p>
+    <h3 style="color: #000;">Faahfaahin (Somali)</h3>
+    <p id="landmarkDescription_so" style="color: #000;"></p>
+    <p>
+      <a id="googleMapsLink" href="#" target="_blank" style="color: #007BFF; font-weight: bold;">View on Google Maps</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  var landmarks = {{ landmarks|tojson }};
+  
+  function initMap() {
+    var somaliaCenter = { lat: 5.1521, lng: 46.1996 };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 6,
+      center: somaliaCenter
+    });
+    
+    // Create markers for each landmark
+    landmarks.forEach(function(landmark) {
+      var marker = new google.maps.Marker({
+        position: landmark.position,
+        map: map,
+        title: landmark.name
+      });
+      marker.addListener('click', function() {
+        openModal(landmark);
+      });
+    });
+  }
+
+  function openModal(landmark) {
+    document.getElementById('landmarkName').innerText = landmark.name;
+    document.getElementById('landmarkPhoto').src = landmark.photo;
+    document.getElementById('landmarkPhoto').alt = landmark.name;
+    document.getElementById('landmarkDescription_en').innerText = landmark.description_en;
+    document.getElementById('landmarkDescription_so').innerText = landmark.description_so;
+    document.getElementById('googleMapsLink').href = landmark.googleMapsUrl;
+    document.getElementById('landmarkModal').style.display = "block";
+  }
+
+  // Close logic
+  var modal = document.getElementById("landmarkModal");
+  var closeBtn = document.getElementsByClassName("close")[0];
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+<!-- Load Google Maps API with your key -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap"></script>
+{% endblock %}
