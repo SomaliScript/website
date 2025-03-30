@@ -262,23 +262,19 @@ h1 {
 }
 
 #timeline-content h1 {
-  font-family: "Arial", sans-serif;
-  font-weight: 400;
-  font-size: 2.4em;
+  font-family: inherit; 
+  font-size: 2em;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 #timeline-content ul.timeline {
-  list-style: none;
-  /* REMOVE BULLETS */
-  padding-left: 0;
-  /* Remove extra padding */
+  list-style: none; /* REMOVE BULLETS */
+  padding-left: 0; /* Remove extra padding */
   position: relative;
   max-width: 60%;
   border-left: 3px solid #4188DD;
-  padding-left: 60px;
-  /* Push text further from the line */
+  padding-left: 60px; /* Push text further from the line */
   margin: auto;
 }
 
