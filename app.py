@@ -104,5 +104,10 @@ def learn():
         return jsonify({"response": response.content})
     return render_template("learn.html")
 
+@app.route("/wordle")
+def wordle():
+    return render_template("wordle.html")
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
