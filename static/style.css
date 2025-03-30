@@ -256,29 +256,22 @@ h1 {
 }
 
 #timeline-content ul.timeline {
-  border-left: 4px solid #004ffc;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-  background: rgba(255,255,255,0.03);
-  color: rgba(255,255,255,0.8);
-  font-size: 1em;
-  line-height: 1.4em;
-  list-style: none;
-  margin: 50px auto;
-  padding: 50px;
-  max-width: 30%; 
+  list-style: none; /* REMOVE BULLETS */
+  padding-left: 0; /* Remove extra padding */
   position: relative;
-  text-align: left;
-  font-weight: 100;
+    max-width: 60%;
+    border-left: 3px solid #00bfff;
+    padding-left: 60px; /* Push text further from the line */
+    margin: auto;
 }
 
 /* Timeline event items */
 #timeline-content ul.timeline .event {
-  border-bottom: 1px dashed rgba(255,255,255,0.1);
-  margin-bottom: 50px;
-  padding-bottom: 25px;
   position: relative;
+  padding-left: 20px; /* Push text away from line */
+  margin-bottom: 50px; /* More spacing between events */
 }
+
 #timeline-content ul.timeline .event:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -286,40 +279,37 @@ h1 {
 }
 
 #timeline-content ul.timeline .event::before {
-  color: rgba(255,255,255,0.6);
   content: attr(data-date);
-  font-size: 0.9em;
-  font-weight: 100;
+  font-size: 1em;
+  font-weight: bold;
   position: absolute;
-  left: -180px; 
-  top: 0;
-  min-width: 120px;
-  text-align: right;
+  left: -230px;  /* Move further left */
+  top: 5px;
+  color: #00bfff;
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 #timeline-content ul.timeline .event::after {
-  background: #000;
-  border: 4px solid #004ffc;
-  border-radius: 50%;
   content: "";
-  height: 11px;
-  width: 11px;
+  background: #00bfff;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
   position: absolute;
-  left: -35px;
-  top: 2px;
+  left: -38px;  /* Align with timeline */
+  top: 10px;
 }
-
 #timeline-content ul.timeline .event h3 {
-  font-size: 1.3em;
+  font-size: 1.4em;
   font-weight: bold;
-  color: #fff;
-  margin: 0 0 10px;
+  margin-bottom: 10px;
 }
 
 #timeline-content ul.timeline .event p {
-  font-weight: 300;
-  line-height: 1.5;
+  font-size: 1.1em;
   color: #ccc;
+  line-height: 1.5;
 }
 
 #timeline-content ul.timeline .event a {
@@ -341,20 +331,28 @@ h1 {
 }
 
 /* Media Queries for Timeline */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
+  h1 {
+    text-align: center;
+  }
+
   #timeline-content ul.timeline {
     max-width: 90%;
-    padding: 30px;
+    padding: 20px;
   }
+
   #timeline-content ul.timeline .event::before {
-    left: -100px;
+    left: -80px; /* Adjust date position */
+    font-size: 0.85em;
   }
+
   #timeline-content ul.timeline .event::after {
-    left: -22px;
+    left: -20px;
   }
 }
+
 @media (max-width: 500px) {
   #timeline-content ul.timeline .event::before {
-    display: none;
+    display: none; /* Hide dates if too small */
   }
 }
