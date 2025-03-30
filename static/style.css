@@ -2,60 +2,66 @@
 /* General Reset & Theme */
 /* ======================= */
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #000;  
-  color: #fff;             
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif; /* A modern, clean font */
+  line-height: 1.7;
+  background-color: #111;  /* Slightly lighter black */
+  color: #eee;  /* Softer white for better readability */
 }
 
 /* ======================= */
 /* Navbar Styling */
 /* ======================= */
 .navbar {
-  background-color: #222;
-  padding: 1em;
+  background: linear-gradient(90deg, #000, #4188DD);
+  padding: 1.2em;
 }
+
 .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  list-style: none;
   display: flex;
+  gap: 25px;
 }
-.navbar li {
-  margin-right: 20px;
-}
+
 .navbar a {
-  text-decoration: none;
   color: #fff;
-  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
+
 .navbar a:hover {
-  color: #ccc;
+  color: #4188DD; 
+  text-shadow: 0px 0px 10px rgba(0, 191, 255, 0.7);
 }
+
 
 /* ======================= */
 /* Page Content Container */
 /* ======================= */
 .content {
-  padding: 2em;
+  padding: 3em;
+  max-width: 1000px;
+  margin: auto;  /* Centers content */
 }
-
 /* ======================= */
 /* Home Page */
 /* ======================= */
-.intro-section {
-  width: 100%;
-  padding: 0 1em;
+h1 {
+  font-size: 2.5em;
 }
 
+.intro-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 /* Somali Flag: Floated to the right to reduce awkward space */
 .intro-flag {
-  float: right;
-  max-width: 150px; 
-  margin: 0 0 1em 1em; 
-  border: 2px solid #444;
-  border-radius: 5px;
+  width: 180px;
+  border: 2px solid #4188DD;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 191, 255, 0.5);
 }
 
 /* Main Text */
@@ -65,12 +71,13 @@ body {
 }
 
 /* Subheading Style */
-.intro-subheading {
-  font-size: 1.3em;
-  color: #00bfff;
-  margin: 1em 0 0.5em;
-  font-weight: bold;
-}
+  .intro-subheading {
+    font-size: 1.5em;
+    color: #4188DD;
+    margin-top: 1.5em;
+    border-left: 5px solid #4188DD;
+    padding-left: 10px;
+  }
 
 .intro-section::after {
   content: "";
@@ -90,16 +97,59 @@ body {
 
 .gallery-item {
   width: 400px;
-  height: 240px;
+  height: 250px;
   object-fit: cover;
-  border: 2px solid #444;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gallery-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+}
+
+/* Home Page Mobile Styling */
+
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .navbar li {
+    margin-bottom: 10px; /* Add spacing between items */
+  }
+
+  .content {
+    padding: 1.5em;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 1em;
+  }
+
+  .intro-text {
+    font-size: 1em;
+    line-height: 1.6;
+  }
+  
+  .intro-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .intro-flag {
+    display: block;
+    margin: 10px auto;
+  }
+
+  .gallery-item {
+    width: 100%;
+    max-width: 350px;
+  }
 }
 
 /* ======================= */
@@ -177,7 +227,7 @@ body {
 .food-item h3 {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  color: #00bfff;
+  color: #4188DD;
 }
 .food-item p {
   line-height: 1.4;
