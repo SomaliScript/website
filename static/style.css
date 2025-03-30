@@ -2,17 +2,20 @@
 /* General Reset & Theme */
 /* ======================= */
 body {
-  font-family: "Poppins", sans-serif; /* A modern, clean font */
+  font-family: "Poppins", sans-serif;
+  /* A modern, clean font */
   line-height: 1.7;
-  background-color: #111;  /* Slightly lighter black */
-  color: #eee;  /* Softer white for better readability */
+  background-color: #111;
+  /* Slightly lighter black */
+  color: #eee;
+  /* Softer white for better readability */
 }
 
 /* ======================= */
 /* Navbar Styling */
 /* ======================= */
 .navbar {
-  background: linear-gradient(90deg, #000, #4188DD);
+  background: linear-gradient(90deg, #111, #4188DD);
   padding: 1.2em;
 }
 
@@ -30,7 +33,7 @@ body {
 }
 
 .navbar a:hover {
-  color: #4188DD; 
+  color: #4188DD;
   text-shadow: 0px 0px 10px rgba(0, 191, 255, 0.7);
 }
 
@@ -41,8 +44,9 @@ body {
 .content {
   padding: 3em;
   max-width: 1000px;
-  margin: auto;  /* Centers content */
+  margin: auto; /* Centers content */
 }
+
 /* ======================= */
 /* Home Page */
 /* ======================= */
@@ -56,6 +60,7 @@ h1 {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 /* Somali Flag: Floated to the right to reduce awkward space */
 .intro-flag {
   width: 180px;
@@ -71,13 +76,13 @@ h1 {
 }
 
 /* Subheading Style */
-  .intro-subheading {
-    font-size: 1.5em;
-    color: #4188DD;
-    margin-top: 1.5em;
-    border-left: 5px solid #4188DD;
-    padding-left: 10px;
-  }
+.intro-subheading {
+  font-size: 1.5em;
+  color: #4188DD;
+  margin-top: 1.5em;
+  border-left: 5px solid #4188DD;
+  padding-left: 10px;
+}
 
 .intro-section::after {
   content: "";
@@ -91,8 +96,8 @@ h1 {
   flex-wrap: wrap;
   gap: 1em;
   margin-top: 1em;
-  justify-content: center; 
-  padding: 0 1em;        
+  justify-content: center;
+  padding: 0 1em;
 }
 
 .gallery-item {
@@ -116,9 +121,10 @@ h1 {
     text-align: center;
     padding: 0;
   }
-  
+
   .navbar li {
-    margin-bottom: 10px; /* Add spacing between items */
+    margin-bottom: 10px;
+    /* Add spacing between items */
   }
 
   .content {
@@ -135,7 +141,7 @@ h1 {
     font-size: 1em;
     line-height: 1.6;
   }
-  
+
   .intro-section {
     flex-direction: column;
     text-align: center;
@@ -158,7 +164,7 @@ h1 {
 
 #map {
   width: 100%;
-  height: calc(100vh - 90px); 
+  height: calc(100vh - 90px);
   margin: 0;
   padding: 0;
   top: 0;
@@ -174,8 +180,9 @@ h1 {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
+
 .modal-content {
   background-color: #fefefe;
   margin: auto;
@@ -184,8 +191,9 @@ h1 {
   width: 80%;
   max-width: 800px;
   position: relative;
-  color: #000; 
+  color: #000;
 }
+
 .close {
   color: #aaa;
   position: absolute;
@@ -195,6 +203,7 @@ h1 {
   font-weight: bold;
   cursor: pointer;
 }
+
 .close:hover,
 .close:focus {
   color: black;
@@ -202,9 +211,9 @@ h1 {
 }
 
 #landmarkPhoto {
-  width: 600px;        
-  height: 400px;      
-  object-fit: cover;   
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
   display: block;
   margin: 0 auto;
 }
@@ -217,6 +226,7 @@ h1 {
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1em;
 }
+
 .food-item {
   background-color: #111;
   padding: 1em;
@@ -224,14 +234,17 @@ h1 {
   text-align: center;
   border: 1px solid #444;
 }
+
 .food-item h3 {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   color: #4188DD;
 }
+
 .food-item p {
   line-height: 1.4;
 }
+
 .food-image {
   width: 100%;
   height: 140px;
@@ -247,38 +260,31 @@ h1 {
   margin-top: 50px;
   text-align: center;
 }
+
 #timeline-content h1 {
-  font-family: "Arial", sans-serif;
-  font-weight: 400;
-  font-size: 2.4em;
+  font-family: inherit; 
+  font-size: 2em;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 #timeline-content ul.timeline {
-  border-left: 4px solid #004ffc;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-  background: rgba(255,255,255,0.03);
-  color: rgba(255,255,255,0.8);
-  font-size: 1em;
-  line-height: 1.4em;
-  list-style: none;
-  margin: 50px auto;
-  padding: 50px;
-  max-width: 30%; 
+  list-style: none; /* REMOVE BULLETS */
+  padding-left: 0; /* Remove extra padding */
   position: relative;
-  text-align: left;
-  font-weight: 100;
+  max-width: 60%;
+  border-left: 3px solid #4188DD;
+  padding-left: 60px; /* Push text further from the line */
+  margin: auto;
 }
 
 /* Timeline event items */
 #timeline-content ul.timeline .event {
-  border-bottom: 1px dashed rgba(255,255,255,0.1);
-  margin-bottom: 50px;
-  padding-bottom: 25px;
   position: relative;
+  padding-left: 20px; /* Push text away from line */
+  margin-bottom: 50px; /* More spacing between events */
 }
+
 #timeline-content ul.timeline .event:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -286,40 +292,52 @@ h1 {
 }
 
 #timeline-content ul.timeline .event::before {
-  color: rgba(255,255,255,0.6);
   content: attr(data-date);
-  font-size: 0.9em;
-  font-weight: 100;
+  font-size: 1em;
+  font-weight: bold;
   position: absolute;
-  left: -180px; 
-  top: 0;
-  min-width: 120px;
-  text-align: right;
+  left: -120px; /* General position for all dates */
+  top: 5px;
+  color: #4188DD;
+  white-space: nowrap;
+}
+
+#timeline-content ul.timeline .event[data-date="Ancient Times"]::before {
+  left: -190px; /* Move this one further left */
+}
+
+
+#timeline-content ul.timeline .event[data-date="13th-17th Centuries"]::before {
+  left: -230px; /* Move this one slightly left */
+}
+
+#timeline-content ul.timeline .event[data-date="1977-78"]::before {
+  left: -140px; /* Move this one slightly left */
 }
 
 #timeline-content ul.timeline .event::after {
-  background: #000;
-  border: 4px solid #004ffc;
-  border-radius: 50%;
   content: "";
-  height: 11px;
-  width: 11px;
+  background: #4188DD;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+  border-radius: 50%;
+  height: 12px;
+  width: 12px;
   position: absolute;
-  left: -35px;
-  top: 2px;
+  left: -38px;
+  /* Align with timeline */
+  top: 10px;
 }
 
 #timeline-content ul.timeline .event h3 {
-  font-size: 1.3em;
+  font-size: 1.4em;
   font-weight: bold;
-  color: #fff;
-  margin: 0 0 10px;
+  margin-bottom: 10px;
 }
 
 #timeline-content ul.timeline .event p {
-  font-weight: 300;
-  line-height: 1.5;
+  font-size: 1.1em;
   color: #ccc;
+  line-height: 1.5;
 }
 
 #timeline-content ul.timeline .event a {
@@ -334,6 +352,7 @@ h1 {
   padding: 0.3rem 1rem;
   margin: 1.9rem 0 0 0;
 }
+
 #timeline-content ul.timeline .event a:hover {
   color: #fff;
   background: #004ffc;
@@ -341,18 +360,68 @@ h1 {
 }
 
 /* Media Queries for Timeline */
-@media (max-width: 800px) {
-  #timeline-content ul.timeline {
-    max-width: 90%;
-    padding: 30px;
+@media (max-width: 768px) {
+  h1 {
+    text-align: center;
   }
+
+  #timeline-content ul.timeline .event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    margin-bottom: 50px; /* Add spacing between events */
+  }
+
+  /* Move dates above each event */
   #timeline-content ul.timeline .event::before {
-    left: -100px;
+    position: relative;
+    left: auto;
+    top: auto;
+    font-size: 1em;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #4188DD;
+    order: -1; /* Ensures dates appear before event title */
   }
+
+  /* Custom tweaks for specific dates */
+  #timeline-content ul.timeline .event[data-date="Ancient Times"]::before {
+    left: 0%; /* Move slightly right */
+  }
+
+  #timeline-content ul.timeline .event[data-date="13th-17th Centuries"]::before {
+    left: 0%; /* Slight shift right */
+  }
+
+  #timeline-content ul.timeline .event[data-date="1977-78"]::before {
+    left: 0%; /* Small adjustment */
+  }
+
+  /* Keep dots aligned with the line */
   #timeline-content ul.timeline .event::after {
-    left: -22px;
+    left: 15px;
+    /* Push dots next to the timeline */
+    transform: none;
+    margin-top: 5px;
+  }
+
+  /* Adjust text alignment */
+  #timeline-content ul.timeline .event h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  #timeline-content ul.timeline .event p {
+    margin-top: 5px;
+    font-size: 1em;
+    line-height: 1.5;
   }
 }
+
+
 @media (max-width: 500px) {
   #timeline-content ul.timeline .event::before {
     display: none;
