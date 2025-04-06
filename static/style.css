@@ -427,3 +427,92 @@ h1 {
     display: none;
   }
 }
+
+
+
+
+/* ======================= */
+/* Abdi Styling */
+/* ======================= */
+
+
+/* Title */
+.chat-title {
+  margin-bottom: 0.5em;
+  font-size: 2rem;
+}
+
+/* Chat container */
+#chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+}
+
+/* Chat box */
+#chat-box {
+  flex: 1;
+  background: linear-gradient(100deg, #4188DD, #111);
+  background-color: #121212; 
+  color: #e0e0e0; 
+  padding: 1.5em;
+  overflow-y: auto;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+}
+
+/* Message bubbles */
+.msg {
+  font-size: 1rem;  
+  margin: 0.5em 0;
+  padding: 0.75em 1em;
+  border-radius: 12px;
+  max-width: 50%;
+  word-wrap: break-word;
+  line-height: 1.6;
+}
+
+.msg.abdi {
+  background-color: #1e1e1e;
+  background-color: #1f1f1f;
+  color: #f0f0f0;
+  text-align: left;
+}
+
+.msg.you {
+  background-color: #4188DD;
+  color: #000;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Form */
+#chat-form {
+  display: flex;
+  gap: 0.5em;
+  margin-top: 0.75em;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 0.6em;
+  border-radius: 5px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+}
+
+#chat-send {
+  background-color: #4188DD;
+  color: #000;
+  font-weight: bold;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#chat-send:hover {
+  background-color: #4188DD;
+}
