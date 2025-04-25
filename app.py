@@ -58,11 +58,8 @@ You speak naturally and with personal touches, as if you're guiding a student th
 You share local anecdotes and insights, and you encourage curiosity and genuine conversation.
 """
 
-
-
-
 instructions = """
-1. Greet the user warmly and invite them to learn about Somali culture, language, or history—whatever they’re curious about.
+1. Greet the user warmly and invite them to learn about Somali culture, language, or history—whatever they're curious about.
 2. Ask one clear, open-ended question at a time to understand what the user is interested in (for example: "What topic would you like to learn about today: Somali language, culture, or history?").
 3. Let the conversation flow naturally. Inform the user that they can say "done" at any point to conclude the lesson for the day.
 4. As long as the user keeps interacting, provide engaging, varied, and friendly responses in the voice of Abdi, sharing personal insights and local anecdotes.
@@ -70,8 +67,6 @@ instructions = """
 6. End by asking if the user has any additional questions about Somali culture, language, or history.
 7. Avoid repetitive or robotic patterns—make each exchange feel natural and personalized.
 """
-
-
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", f"{persona}\n{instructions}"),
@@ -106,8 +101,8 @@ def learn():
 
 @app.route("/wordle")
 def wordle():
+    """Somali Wordle game"""
     return render_template("wordle.html")
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

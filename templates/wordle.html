@@ -1,0 +1,469 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="wordle-container">
+  <div class="wordle-header">
+    <button id="help-button" class="wordle-icon">?</button>
+    <h1 class="wordle-title">ERAY</h1>
+    <div class="wordle-icon-group">
+      <button id="stats-button" class="wordle-icon">📊</button>
+      <button id="settings-button" class="wordle-icon">⚙️</button>
+    </div>
+  </div>
+
+  <!-- Game board -->
+  <div class="game-board">
+    <!-- Rows will be populated by JS -->
+  </div>
+
+  <!-- Keyboard -->
+  <div class="keyboard">
+    <!-- Keyboard rows will be populated by JS -->
+  </div>
+
+  <div class="game-message" id="game-message"></div>
+
+  <div class="instructions">
+    <p>
+      Guess the ERAY in 6 tries. Each guess must be a valid 5-letter Somali
+      word.
+    </p>
+    <p>
+      After each guess, the color of the tiles will change to show how close
+      your guess was to the word.
+    </p>
+  </div>
+</div>
+
+<!-- Help Modal -->
+<div id="help-modal" class="wordle-modal">
+  <div class="wordle-modal-content">
+    <span class="close">&times;</span>
+    <h2 class="modal-title">How to Play</h2>
+    <p>Guess the ERAY in 6 tries.</p>
+    <p>
+      Each guess must be a valid 5-letter Somali word. Press Enter to submit.
+    </p>
+    <p>
+      After each guess, the color of the tiles will change to show how close
+      your guess was to the word.
+    </p>
+
+    <h3>Examples</h3>
+    <div class="example-row">
+      <div class="example-tile correct">B</div>
+      <div class="example-tile">I</div>
+      <div class="example-tile">S</div>
+      <div class="example-tile">H</div>
+      <div class="example-tile">I</div>
+    </div>
+    <p>The letter B is in the word and in the correct spot.</p>
+
+    <div class="example-row">
+      <div class="example-tile">C</div>
+      <div class="example-tile present">A</div>
+      <div class="example-tile">A</div>
+      <div class="example-tile">N</div>
+      <div class="example-tile">O</div>
+    </div>
+    <p>The letter A is in the word but in the wrong spot.</p>
+
+    <div class="example-row">
+      <div class="example-tile">X</div>
+      <div class="example-tile">I</div>
+      <div class="example-tile">D</div>
+      <div class="example-tile absent">I</div>
+      <div class="example-tile">G</div>
+    </div>
+    <p>The letter I is not in the word in any spot.</p>
+  </div>
+</div>
+
+<!-- Stats Modal -->
+<div id="stats-modal" class="wordle-modal">
+  <div class="wordle-modal-content">
+    <span class="close">&times;</span>
+    <h2 class="modal-title">Statistics</h2>
+    <div id="stats-container">
+      <div>
+        <h3>Games Played</h3>
+        <p id="games-played">0</p>
+      </div>
+      <div>
+        <h3>Win %</h3>
+        <p id="win-percentage">0</p>
+      </div>
+      <div>
+        <h3>Current Streak</h3>
+        <p id="current-streak">0</p>
+      </div>
+      <div>
+        <h3>Max Streak</h3>
+        <p id="max-streak">0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Somali 5-letter words for the game
+  const words = [
+    "BARAF",
+    "BISAD",
+    "CANAB",
+    "CAANO",
+    "DAMBE",
+    "DIGSI",
+    "DABAQ",
+    "ERAYD",
+    "FALAQ",
+    "GALAB",
+    "GEEDI",
+    "HOBYO",
+    "HILIB",
+    "IFTUN",
+    "JABAN",
+    "JILIB",
+    "KABAB",
+    "KOOFUR",
+    "LIBIN",
+    "MINDI",
+    "NABAR",
+    "QAYLO",
+    "QOYAR",
+    "ROOTI",
+    "SUBAX",
+    "SANAD",
+    "TIMIR",
+    "UBAX",
+    "WADNO",
+    "XARIG",
+  ];
+
+  // Somali keyboard layout (3 rows)
+  const keyboardLayout = [
+    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+    ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "BACK"],
+  ];
+
+  let currentRow = 0;
+  let currentTile = 0;
+  let isGameOver = false;
+  let targetWord = "";
+
+  // Game state
+  let gameState = {
+    gamesPlayed: 0,
+    wins: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+    lastCompletedDate: null,
+  };
+
+  // Load saved game state if available
+  function loadGameState() {
+    const savedState = localStorage.getItem("somaliWordleState");
+    if (savedState) {
+      gameState = JSON.parse(savedState);
+    }
+
+    // Update stats display
+    document.getElementById("games-played").textContent = gameState.gamesPlayed;
+    document.getElementById("win-percentage").textContent =
+      gameState.gamesPlayed > 0
+        ? Math.round((gameState.wins / gameState.gamesPlayed) * 100)
+        : 0;
+    document.getElementById("current-streak").textContent =
+      gameState.currentStreak;
+    document.getElementById("max-streak").textContent = gameState.maxStreak;
+  }
+
+  // Save game state
+  function saveGameState() {
+    localStorage.setItem("somaliWordleState", JSON.stringify(gameState));
+  }
+
+  // Initialize game
+  function initGame() {
+    loadGameState();
+    createBoard();
+    createKeyboard();
+    selectRandomWord();
+    setupEventListeners();
+  }
+
+  // Select a random Somali word
+  function selectRandomWord() {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    targetWord = words[randomIndex];
+    console.log("Target word (for testing):", targetWord);
+  }
+
+  // Create the game board
+  function createBoard() {
+    const gameBoard = document.querySelector(".game-board");
+    gameBoard.innerHTML = "";
+
+    for (let i = 0; i < 6; i++) {
+      const row = document.createElement("div");
+      row.classList.add("game-row");
+
+      for (let j = 0; j < 5; j++) {
+        const tile = document.createElement("div");
+        tile.classList.add("game-tile");
+        tile.setAttribute("data-row", i);
+        tile.setAttribute("data-col", j);
+        row.appendChild(tile);
+      }
+
+      gameBoard.appendChild(row);
+    }
+  }
+
+  // Create the keyboard
+  function createKeyboard() {
+    const keyboard = document.querySelector(".keyboard");
+    keyboard.innerHTML = "";
+
+    keyboardLayout.forEach((row) => {
+      const keyboardRow = document.createElement("div");
+      keyboardRow.classList.add("keyboard-row");
+
+      row.forEach((key) => {
+        const keyElem = document.createElement("button");
+        keyElem.classList.add("key");
+        keyElem.textContent = key;
+
+        if (key === "ENTER" || key === "BACK") {
+          keyElem.classList.add("key-wide");
+        }
+
+        keyElem.setAttribute("data-key", key);
+        keyboardRow.appendChild(keyElem);
+      });
+
+      keyboard.appendChild(keyboardRow);
+    });
+  }
+
+  // Handle keyboard button clicks
+  function handleKeyClick(e) {
+    if (isGameOver) return;
+
+    const key = e.target.getAttribute("data-key");
+
+    if (key === "ENTER") {
+      submitGuess();
+    } else if (key === "BACK") {
+      deleteLetter();
+    } else if (currentTile < 5 && currentRow < 6) {
+      addLetter(key);
+    }
+  }
+
+  // Handle physical keyboard input
+  function handleKeyPress(e) {
+    if (isGameOver) return;
+
+    if (e.key === "Enter") {
+      submitGuess();
+    } else if (e.key === "Backspace") {
+      deleteLetter();
+    } else if (/^[a-zA-Z]$/.test(e.key) && currentTile < 5 && currentRow < 6) {
+      addLetter(e.key.toUpperCase());
+    }
+  }
+
+  // Add a letter to the current tile
+  function addLetter(letter) {
+    if (currentTile < 5) {
+      const tile = document.querySelector(
+        `[data-row="${currentRow}"][data-col="${currentTile}"]`
+      );
+      tile.textContent = letter;
+      tile.setAttribute("data-letter", letter);
+      currentTile++;
+    }
+  }
+
+  // Delete a letter from the current tile
+  function deleteLetter() {
+    if (currentTile > 0) {
+      currentTile--;
+      const tile = document.querySelector(
+        `[data-row="${currentRow}"][data-col="${currentTile}"]`
+      );
+      tile.textContent = "";
+      tile.removeAttribute("data-letter");
+    }
+  }
+
+  // Submit the current guess
+  function submitGuess() {
+    if (currentTile !== 5) {
+      showMessage("Not enough letters");
+      return;
+    }
+
+    // Get the current guess
+    let guess = "";
+    for (let i = 0; i < 5; i++) {
+      const tile = document.querySelector(
+        `[data-row="${currentRow}"][data-col="${i}"]`
+      );
+      guess += tile.getAttribute("data-letter");
+    }
+
+    // Simple validation - add more sophisticated Somali word validation if needed
+    if (!words.includes(guess)) {
+      showMessage("Not in word list");
+      return;
+    }
+
+    // Check letters against target word
+    const letterCount = {};
+    for (const letter of targetWord) {
+      letterCount[letter] = (letterCount[letter] || 0) + 1;
+    }
+
+    // First pass: check for correct positions
+    const tiles = [];
+    for (let i = 0; i < 5; i++) {
+      const tile = document.querySelector(
+        `[data-row="${currentRow}"][data-col="${i}"]`
+      );
+      tiles.push(tile);
+
+      const letter = tile.getAttribute("data-letter");
+      if (letter === targetWord[i]) {
+        tile.classList.add("correct");
+        letterCount[letter]--;
+
+        // Update keyboard
+        document
+          .querySelector(`[data-key="${letter}"]`)
+          .classList.add("correct");
+      }
+    }
+
+    // Second pass: check for letters in wrong positions
+    for (let i = 0; i < 5; i++) {
+      const tile = tiles[i];
+      const letter = tile.getAttribute("data-letter");
+
+      if (!tile.classList.contains("correct")) {
+        if (letterCount[letter] > 0) {
+          tile.classList.add("present");
+          letterCount[letter]--;
+
+          // Update keyboard if not already marked correct
+          const keyElem = document.querySelector(`[data-key="${letter}"]`);
+          if (!keyElem.classList.contains("correct")) {
+            keyElem.classList.add("present");
+          }
+        } else {
+          tile.classList.add("absent");
+
+          // Update keyboard if not already marked
+          const keyElem = document.querySelector(`[data-key="${letter}"]`);
+          if (
+            !keyElem.classList.contains("correct") &&
+            !keyElem.classList.contains("present")
+          ) {
+            keyElem.classList.add("absent");
+          }
+        }
+      }
+    }
+
+    // Check if game is won
+    if (guess === targetWord) {
+      showMessage("You won!");
+      isGameOver = true;
+
+      // Update game stats
+      gameState.gamesPlayed++;
+      gameState.wins++;
+      gameState.currentStreak++;
+      gameState.maxStreak = Math.max(
+        gameState.maxStreak,
+        gameState.currentStreak
+      );
+      gameState.lastCompletedDate = new Date().toISOString().split("T")[0];
+      saveGameState();
+
+      setTimeout(() => {
+        document.getElementById("stats-modal").style.display = "block";
+      }, 1500);
+
+      return;
+    }
+
+    // Move to next row
+    currentRow++;
+    currentTile = 0;
+
+    // Check if game is lost
+    if (currentRow === 6) {
+      showMessage(`Game over! The word was ${targetWord}`);
+      isGameOver = true;
+
+      // Update game stats
+      gameState.gamesPlayed++;
+      gameState.currentStreak = 0;
+      gameState.lastCompletedDate = new Date().toISOString().split("T")[0];
+      saveGameState();
+
+      setTimeout(() => {
+        document.getElementById("stats-modal").style.display = "block";
+      }, 1500);
+    }
+  }
+
+  // Show a message to the user
+  function showMessage(message) {
+    const messageElem = document.getElementById("game-message");
+    messageElem.textContent = message;
+
+    setTimeout(() => {
+      messageElem.textContent = "";
+    }, 2000);
+  }
+
+  // Setup event listeners
+  function setupEventListeners() {
+    // Keyboard clicks
+    document.querySelectorAll(".key").forEach((key) => {
+      key.addEventListener("click", handleKeyClick);
+    });
+
+    // Physical keyboard
+    document.addEventListener("keydown", handleKeyPress);
+
+    // Modal controls
+    document.getElementById("help-button").addEventListener("click", () => {
+      document.getElementById("help-modal").style.display = "block";
+    });
+
+    document.getElementById("stats-button").addEventListener("click", () => {
+      document.getElementById("stats-modal").style.display = "block";
+    });
+
+    document.querySelectorAll(".close").forEach((closeBtn) => {
+      closeBtn.addEventListener("click", () => {
+        document.getElementById("help-modal").style.display = "none";
+        document.getElementById("stats-modal").style.display = "none";
+      });
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target.classList.contains("wordle-modal")) {
+        e.target.style.display = "none";
+      }
+    });
+  }
+
+  // Initialize the game when the page loads
+  document.addEventListener("DOMContentLoaded", initGame);
+</script>
+{% endblock %}

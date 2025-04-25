@@ -1,37 +1,99 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horn Heritage</title>
-  <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Flag_of_Somalia.svg/800px-Flag_of_Somalia.svg.png">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <!--Navbar -->
-  <nav class="navbar">
-    <div class="navbar-container">
-      <button class="menu-toggle" id="menu-toggle">&#9776;</button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('history') }}">History</a></li>
-        <li><a href="{{ url_for('food') }}">Cuisine</a></li>
-        <li><a href="{{ url_for('landmarks') }}">Landmarks</a></li>
-        <li><a href="{{ url_for('wordle') }}">Wordle</a></li>
-        <li><a href="{{ url_for('learn') }}">Learn More</a></li>
-      </ul>
-    </div>
-  </nav>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover the rich cultural heritage of Somalia - from history and landmarks to cuisine and language"
+    />
+    <meta
+      name="keywords"
+      content="Somalia, Somali culture, Horn of Africa, Somali food, African history"
+    />
+    <title>Horn Heritage | Explore Somalia</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Flag_of_Somalia.svg/800px-Flag_of_Somalia.svg.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <!--Navbar -->
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="{{ url_for('home') }}" class="logo">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Flag_of_Somalia.svg/800px-Flag_of_Somalia.svg.png"
+            alt="Somali Flag"
+            class="nav-logo"
+          />
+          <span>Horn Heritage</span>
+        </a>
+        <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('history') }}">History</a></li>
+          <li><a href="{{ url_for('food') }}">Cuisine</a></li>
+          <li><a href="{{ url_for('landmarks') }}">Landmarks</a></li>
+          <li><a href="{{ url_for('wordle') }}">Wordle</a></li>
+          <li><a href="{{ url_for('learn') }}">Learn More</a></li>
+        </ul>
+      </div>
+    </nav>
 
-  <!-- Main Content -->
-  <div class="content">
-    {% block content %}{% endblock %}
-  </div>
+    <!-- Main Content -->
+    <div class="content">{% block content %}{% endblock %}</div>
 
-  <script>
-    document.getElementById('menu-toggle').addEventListener('click', function () {
-      document.getElementById('nav-links').classList.toggle('show');
-    });
-  </script>
-</body>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>About Horn Heritage</h3>
+          <p>
+            Celebrating and sharing the rich cultural heritage of Somalia with
+            the world.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('history') }}">History</a></li>
+            <li><a href="{{ url_for('food') }}">Cuisine</a></li>
+            <li><a href="{{ url_for('landmarks') }}">Landmarks</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Connect</h3>
+          <div class="social-links">
+            <a href="#" class="social-link">Twitter</a>
+            <a href="#" class="social-link">Instagram</a>
+            <a href="#" class="social-link">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Horn Heritage. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("show");
+        });
+    </script>
+  </body>
 </html>
